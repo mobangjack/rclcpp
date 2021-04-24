@@ -80,7 +80,7 @@ set_signal_handler(int signal_value, signal_handler_t signal_handler)
     // NOLINTNEXTLINE(runtime/arrays)
     char error_string[error_length];
 #ifndef _WIN32
-#if (defined(_GNU_SOURCE) && !defined(ANDROID))
+#if (defined(_GNU_SOURCE) && (!defined(ANDROID)) || __ANDROID_API__ >= 23)
     char * msg = strerror_r(errno, error_string, error_length);
     if (msg != error_string) {
       strncpy(error_string, msg, error_length);
